@@ -1,0 +1,218 @@
+<html>
+  <head>
+    <title>Your-score</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --color-grey: rgb(107, 109, 111);
+        --color-a: rgb(0, 126, 70);
+        --color-b: rgb(110, 184, 72);
+        --color-c: rgb(255, 191, 50);
+        --color-d: rgb(255, 114, 43);
+        --color-e: rgb(255, 50, 38);
+        background-color: rgb(191, 193, 195);
+        font-family: "Urbanist", sans-serif;
+        font-size: 1cm;
+      }
+
+      * {
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+      }
+
+      .caption {
+        color: var(--color-grey);
+        display: block;
+        font-weight: 800;
+        font-size: 0.6rem;
+        line-height: 1;
+        margin: 0 0 0.75ex 0.5ex;
+      }
+
+      .label {
+        background-color: white;
+        /* border: 0.3ex solid var(--color-grey); */
+        border-radius: 0.75em;
+        margin: 1ex;
+        overflow: visible;
+        padding: 0.4ex;
+        width: min-content;
+        text-transform: uppercase;
+      }
+
+      .scale {
+        margin: 0 0.1ex;
+        position: relative;
+      }
+
+      .scale ul.background {
+        border-radius: 1ex;
+        display: flex;
+        list-style-type: none;
+        overflow: hidden;
+      }
+
+      .scale ul.background li {
+        color: rgba(255, 255, 255, 0.65);
+        display: inline-block;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin: 0;
+        text-align: center;
+        width: 1em;
+      }
+
+      .scale ul.grade {
+        bottom: -0.5ex;
+        display: flex;
+        left: -0.4ex;
+        list-style-type: none;
+        position: absolute;
+        right: -0.4ex;
+        top: -0.5ex;
+      }
+
+      .scale ul.grade li {
+        border: 0.2ex solid white;
+        border-radius: 1em;
+        color: white;
+        display: inline-block;
+        flex: 0 1;
+        font-size: 1.2rem;
+        font-weight: 600;
+        visibility: hidden;
+      }
+
+      .scale ul.grade li.selected {
+        flex: 0 0 1em;
+        font-weight: 800;
+        line-height: 1.8;
+        text-align: center;
+        visibility: visible;
+      }
+
+      .a {
+        background-color: var(--color-a);
+      }
+      .b {
+        background-color: var(--color-b);
+      }
+      .c {
+        background-color: var(--color-c);
+      }
+      .d {
+        background-color: var(--color-d);
+      }
+      .e {
+        background-color: var(--color-e);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="label">
+      <div class="caption">Nutri-score</div>
+      <div class="scale">
+        <ul class="background">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+        <ul class="grade">
+          <li class="a selected">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="label">
+      <div class="caption">Nutri-score</div>
+      <div class="scale">
+        <ul class="background">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+        <ul class="grade">
+          <li class="a">A</li>
+          <li class="b selected">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="label">
+      <div class="caption">Nutri-score</div>
+      <div class="scale">
+        <ul class="background">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+        <ul class="grade">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c selected">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="label">
+      <div class="caption">Nutri-score</div>
+      <div class="scale">
+        <ul class="background">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+        <ul class="grade">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d selected">D</li>
+          <li class="e">E</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="label">
+      <div class="caption">Nutri-score</div>
+      <div class="scale">
+        <ul class="background">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e">E</li>
+        </ul>
+        <ul class="grade">
+          <li class="a">A</li>
+          <li class="b">B</li>
+          <li class="c">C</li>
+          <li class="d">D</li>
+          <li class="e selected">E</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
