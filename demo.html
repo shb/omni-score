@@ -112,10 +112,41 @@
       .e {
         background-color: var(--color-e);
       }
+
+      svg .caption {
+        fill: var(--color-grey);
+        font: normal 800 34px/1 "Urbanist", sans-serif;
+        letter-spacing: 0.5;
+        text-transform: uppercase;
+      }
+
+      svg .grade.selected text {
+        font: normal 800 83px/1 "Urbanist", sans-serif;
+      }
     </style>
   </head>
-  <body>
-    <div class="label">
+  <body style="background: url(template.png)">
+    <svg width="1000" height="600">
+      <symbol id="square" width="50" height="100">
+        <rect width="50" height="100" stroke="white" strokeWidth="5"></rect>
+      </symbol>
+      <rect
+        x="51"
+        y="49"
+        width="336"
+        height="176"
+        rx="37"
+        ry="37"
+        fill="rgba(255,255,255,1)"
+      />
+      <text x="77" y="90" class="caption">Nutri-score</text>
+      <g class="selected grade" transform="translate(55, 95)">
+        <rect width="81" height="132" rx="37" ry="37" fill="green" stroke="white" stroke-width="7"></rect>
+        <text x="9" y="93" fill="white">A</text>
+      </g>
+    </svg>
+
+    <!-- <div class="label">
       <div class="caption">Nutri-score</div>
       <div class="scale">
         <ul class="background">
@@ -213,6 +244,6 @@
           <li class="e selected">E</li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </body>
 </html>
