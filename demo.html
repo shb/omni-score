@@ -4,20 +4,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;800&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --color-grey: rgb(107, 109, 111);
+        --color-grey: rgb(108, 110, 112);
         --color-a: rgb(0, 126, 70);
         --color-b: rgb(110, 184, 72);
         --color-c: rgb(255, 191, 50);
         --color-d: rgb(255, 114, 43);
         --color-e: rgb(255, 50, 38);
         background-color: rgb(191, 193, 195);
-        font-family: "Urbanist", sans-serif;
-        font-size: 1cm;
       }
 
       * {
@@ -26,224 +24,98 @@
         padding: 0;
       }
 
-      .caption {
-        color: var(--color-grey);
-        display: block;
-        font-weight: 800;
-        font-size: 0.6rem;
-        line-height: 1;
-        margin: 0 0 0.75ex 0.5ex;
-      }
-
-      .label {
-        background-color: white;
-        /* border: 0.3ex solid var(--color-grey); */
-        border-radius: 0.75em;
-        margin: 1ex;
-        overflow: visible;
-        padding: 0.4ex;
-        width: min-content;
-        text-transform: uppercase;
-      }
-
-      .scale {
-        margin: 0 0.1ex;
-        position: relative;
-      }
-
-      .scale ul.background {
-        border-radius: 1ex;
-        display: flex;
-        list-style-type: none;
-        overflow: hidden;
-      }
-
-      .scale ul.background li {
-        color: rgba(255, 255, 255, 0.65);
-        display: inline-block;
-        font-size: 1rem;
-        line-height: 1.8;
-        margin: 0;
-        text-align: center;
-        width: 1em;
-      }
-
-      .scale ul.grade {
-        bottom: -0.5ex;
-        display: flex;
-        left: -0.4ex;
-        list-style-type: none;
-        position: absolute;
-        right: -0.4ex;
-        top: -0.5ex;
-      }
-
-      .scale ul.grade li {
-        border: 0.2ex solid white;
-        border-radius: 1em;
-        color: white;
-        display: inline-block;
-        flex: 0 1;
-        font-size: 1.2rem;
-        font-weight: 600;
-        visibility: hidden;
-      }
-
-      .scale ul.grade li.selected {
-        flex: 0 0 1em;
-        font-weight: 800;
-        line-height: 1.8;
-        text-align: center;
-        visibility: visible;
-      }
-
       .a {
         background-color: var(--color-a);
+        fill: var(--color-a);
       }
       .b {
         background-color: var(--color-b);
+        fill: var(--color-b);
       }
       .c {
         background-color: var(--color-c);
+        fill: var(--color-c);
       }
       .d {
         background-color: var(--color-d);
+        fill: var(--color-d);
       }
       .e {
         background-color: var(--color-e);
+        fill: var(--color-e);
+      }
+
+      svg {
+        opacity: 1;
       }
 
       svg .caption {
         fill: var(--color-grey);
         font: normal 800 34px/1 "Urbanist", sans-serif;
-        letter-spacing: 0.5;
+        letter-spacing: 0.6;
         text-transform: uppercase;
       }
 
+      svg .grade.selected rect {
+        stroke: white;
+        stroke-width: 7;
+      }
       svg .grade.selected text {
+        fill-opacity: 1;
         font: normal 800 83px/1 "Urbanist", sans-serif;
+      }
+
+      svg .grade text {
+        fill: white;
+        fill-opacity: 0.5;
+        font: normal 700 63px/1 "Urbanist", sans-serif;
+        text-anchor: middle;
+        text-transform: uppercase;
       }
     </style>
   </head>
-  <body style="background: url(template.png)">
+  <body style="/* background: url(template.png) */">
     <svg width="1000" height="600">
-      <symbol id="square" width="50" height="100">
-        <rect width="50" height="100" stroke="white" strokeWidth="5"></rect>
-      </symbol>
+      <clipPath id="scale">
+        <rect x="2" y="0" width="309" height="100" rx="22" />
+      </clipPath>
+
       <rect
         x="51"
         y="49"
         width="336"
         height="176"
         rx="37"
-        ry="37"
         fill="rgba(255,255,255,1)"
       />
       <text x="77" y="90" class="caption">Nutri-score</text>
-      <g class="selected grade" transform="translate(55, 95)">
-        <rect width="81" height="132" rx="37" ry="37" fill="green" stroke="white" stroke-width="7"></rect>
-        <text x="9" y="93" fill="white">A</text>
+
+      <g clip-path="url(#scale)" transform="translate(63,111)">
+        <g class="a grade" transform="translate(2)">
+          <rect width="62" height="100" />
+          <text x="29" y="73">A</text>
+        </g>
+        <g class="b grade" transform="translate(64)">
+          <rect width="62" height="100" />
+          <text x="36" y="73">B</text>
+        </g>
+        <g class="c grade" transform="translate(126)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">C</text>
+        </g>
+        <g class="d grade" transform="translate(188)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">D</text>
+        </g>
+        <g class="e grade" transform="translate(250)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">E</text>
+        </g>
+      </g>
+      <g class="selected a grade" transform="translate(55, 95)">
+        <rect width="81" height="133" rx="37" ry="37" />
+        <text x="41" y="93">A</text>
       </g>
     </svg>
-
-    <!-- <div class="label">
-      <div class="caption">Nutri-score</div>
-      <div class="scale">
-        <ul class="background">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-        <ul class="grade">
-          <li class="a selected">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="label">
-      <div class="caption">Nutri-score</div>
-      <div class="scale">
-        <ul class="background">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-        <ul class="grade">
-          <li class="a">A</li>
-          <li class="b selected">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="label">
-      <div class="caption">Nutri-score</div>
-      <div class="scale">
-        <ul class="background">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-        <ul class="grade">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c selected">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="label">
-      <div class="caption">Nutri-score</div>
-      <div class="scale">
-        <ul class="background">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-        <ul class="grade">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d selected">D</li>
-          <li class="e">E</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="label">
-      <div class="caption">Nutri-score</div>
-      <div class="scale">
-        <ul class="background">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e">E</li>
-        </ul>
-        <ul class="grade">
-          <li class="a">A</li>
-          <li class="b">B</li>
-          <li class="c">C</li>
-          <li class="d">D</li>
-          <li class="e selected">E</li>
-        </ul>
-      </div>
-    </div> -->
   </body>
 </html>
