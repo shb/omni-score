@@ -10,11 +10,11 @@
     <style>
       :root {
         --color-grey: rgb(108, 110, 112);
-        --color-a: rgb(0, 126, 70);
-        --color-b: rgb(110, 184, 72);
-        --color-c: rgb(255, 191, 50);
-        --color-d: rgb(255, 114, 43);
-        --color-e: rgb(255, 50, 38);
+        --palette-1: rgb(0, 126, 70);
+        --palette-2: rgb(110, 184, 72);
+        --palette-3: rgb(255, 191, 50);
+        --palette-4: rgb(255, 114, 43);
+        --palette-5: rgb(255, 50, 38);
         background-color: rgb(191, 193, 195);
       }
 
@@ -25,24 +25,24 @@
       }
 
       .a {
-        background-color: var(--color-a);
-        fill: var(--color-a);
+        background-color: var(--palette-1);
+        fill: var(--palette-1);
       }
       .b {
-        background-color: var(--color-b);
-        fill: var(--color-b);
+        background-color: var(--palette-2);
+        fill: var(--palette-2);
       }
       .c {
-        background-color: var(--color-c);
-        fill: var(--color-c);
+        background-color: var(--palette-3);
+        fill: var(--palette-3);
       }
       .d {
-        background-color: var(--color-d);
-        fill: var(--color-d);
+        background-color: var(--palette-4);
+        fill: var(--palette-4);
       }
       .e {
-        background-color: var(--color-e);
-        fill: var(--color-e);
+        background-color: var(--palette-5);
+        fill: var(--palette-5);
       }
 
       svg {
@@ -74,23 +74,23 @@
       }
     </style>
   </head>
-  <body style="/* background: url(template.png) */">
-    <svg width="1000" height="600">
-      <clipPath id="scale">
-        <rect x="2" y="0" width="309" height="100" rx="22" />
-      </clipPath>
-
+  <body>
+    <svg width="416" height="256" viewBox="0 0 416 256">
       <rect
-        x="51"
-        y="49"
+        x="40"
+        y="40"
         width="336"
         height="176"
         rx="37"
         fill="rgba(255,255,255,1)"
       />
-      <text x="77" y="90" class="caption">Nutri-score</text>
 
-      <g clip-path="url(#scale)" transform="translate(63,111)">
+      <text x="66" y="81" class="caption">Nutri-score</text>
+
+      <clipPath id="scale">
+        <rect x="2" y="0" width="309" height="100" rx="22" />
+      </clipPath>
+      <svg clip-path="url(#scale)" x="52" y="102">
         <g class="a grade" transform="translate(2)">
           <rect width="62" height="100" />
           <text x="29" y="73">A</text>
@@ -111,10 +111,97 @@
           <rect width="62" height="100" />
           <text x="31" y="73">E</text>
         </g>
-      </g>
-      <g class="selected a grade" transform="translate(55, 95)">
-        <rect width="81" height="133" rx="37" ry="37" />
+      </svg>
+      <g class="selected a grade" transform="translate(44, 86)">
+        <rect width="81" height="133" rx="40" />
         <text x="41" y="93">A</text>
+      </g>
+    </svg>
+
+    <svg width="416" height="256" viewBox="0 0 416 256">
+      <rect
+        x="40"
+        y="40"
+        width="336"
+        height="176"
+        rx="37"
+        fill="rgba(255,255,255,1)"
+      />
+
+      <text x="66" y="81" class="caption">Nutri-score</text>
+
+      <!-- <clipPath id="scale">
+        <rect x="2" y="0" width="309" height="100" rx="22" />
+      </clipPath> -->
+      <svg clip-path="url(#scale)" x="52" y="102">
+        <g class="a grade" transform="translate(2)">
+          <rect width="62" height="100" />
+          <text x="25" y="73">A</text>
+        </g>
+        <g class="b grade" transform="translate(64)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">B</text>
+        </g>
+        <g class="c grade" transform="translate(126)">
+          <rect width="62" height="100" />
+          <text x="36" y="73">C</text>
+        </g>
+        <g class="d grade" transform="translate(188)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">D</text>
+        </g>
+        <g class="e grade" transform="translate(250)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">E</text>
+        </g>
+      </svg>
+      <g class="selected b grade" transform="translate(106, 86)">
+        <rect width="81" height="133" rx="40" />
+        <text x="41" y="93">B</text>
+      </g>
+    </svg>
+
+
+    <svg width="416" height="256" viewBox="0 0 416 256">
+      <rect
+        x="40"
+        y="40"
+        width="336"
+        height="176"
+        rx="37"
+        fill="rgba(255,255,255,1)"
+      />
+
+      <text x="66" y="81" class="caption">Nutri-score</text>
+
+      <!-- <clipPath id="scale">
+        <rect x="2" y="0" width="309" height="100" rx="22" />
+      </clipPath> -->
+      <svg clip-path="url(#scale)" x="52" y="102">
+        <g class="a grade" transform="translate(2)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">A</text>
+        </g>
+        <g class="b grade" transform="translate(64)">
+          <rect width="62" height="100" />
+          <text x="27" y="73">B</text>
+        </g>
+        <g class="c grade" transform="translate(126)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">C</text>
+        </g>
+        <g class="d grade" transform="translate(188)">
+          <rect width="62" height="100" />
+          <text x="35" y="73">D</text>
+        </g>
+        <g class="e grade" transform="translate(250)">
+          <rect width="62" height="100" />
+          <text x="31" y="73">E</text>
+        </g>
+      </svg>
+      <g class="selected c grade" transform="translate(168, 86)">
+        <rect width="81" height="133" rx="40" />
+        <text x="41" y="93">C</text>
       </g>
     </svg>
   </body>
