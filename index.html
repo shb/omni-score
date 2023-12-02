@@ -1,0 +1,270 @@
+<html>
+  <head>
+    <title>Your-score</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        flex-direction: row;
+      }
+
+      #parameters {
+        background-color: white;
+        flex: 0 0 auto;
+        padding: 1em 1ex;
+      }
+
+      #preview {
+        background-color: rgb(191, 193, 195);
+        flex: 1 1 auto;
+      }
+
+      #scores {
+        list-style: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="parameters">
+      <label for="caption">Title</label><br />
+      <input type="text" name="caption" value="Your-score" /><br />
+
+      <label>Scores</label>
+      <ol id="scores">
+        <li data-score="0">
+          <input type="text" name="mark" value="A" />
+          <input type="color" name="mark" value="#007e46" />
+        </li>
+        <li data-score="1">
+          <input type="text" name="mark" value="B" />
+          <input type="color" name="mark" value="#6eb848" />
+        </li>
+        <li data-score="2">
+          <input type="text" name="mark" value="C" />
+          <input type="color" name="mark" value="#ffbf32" />
+        </li>
+        <li data-score="3">
+          <input type="text" name="mark" value="D" />
+          <input type="color" name="mark" value="#ff722b" />
+        </li>
+        <li data-score="4">
+          <input type="text" name="mark" value="E" />
+          <input type="color" name="mark" value="#ff3226" />
+        </li>
+      </ol>
+    </form>
+
+    <div id="preview"></div>
+
+    <template id="template">
+      <svg width="416" height="256" viewBox="0 0 416 256">
+        <style>
+          .caption {
+            fill: rgb(108, 110, 112);
+            font: normal 800 34px/1 "Urbanist", sans-serif;
+            letter-spacing: 0.6;
+            text-transform: uppercase;
+          }
+          .main {
+            overflow: visible;
+          }
+          .main .score {
+            visibility: hidden;
+          }
+          .main .score.main {
+            visibility: visible;
+          }
+          .score rect {
+            height: 100;
+            width: 62;
+          }
+          .score text {
+            fill: white;
+            fill-opacity: 0.5;
+            font: normal 700 63px/1 "Urbanist", sans-serif;
+            text-anchor: middle;
+            text-transform: uppercase;
+          }
+          .score.main {
+            clip-path: none;
+          }
+          .score.main rect {
+            height: 133;
+            border-radius: 40px;
+            rx: 40;
+            stroke: white;
+            stroke-width: 7;
+            transform: translate(-10px, -17px);
+            width: 81;
+          }
+          .score.main text {
+            fill-opacity: 1;
+            font: normal 800 83px/1 "Urbanist", sans-serif;
+            transform: translate(-1px, 4px);
+          }
+          .score.lower text {
+            transform: translate(5px);
+          }
+          .score.upper text {
+            transform: translate(-5px);
+          }
+          .s0 {
+            fill: rgb(0, 126, 70);
+          }
+          .s1 {
+            fill: rgb(110, 184, 72);
+          }
+          .s2 {
+            fill: rgb(255, 191, 50);
+          }
+          .s3 {
+            fill: rgb(255, 114, 43);
+          }
+          .s4 {
+            fill: rgb(255, 50, 38);
+          }
+        </style>
+
+        <rect
+          x="40"
+          y="40"
+          width="336"
+          height="176"
+          rx="37"
+          fill="rgba(255,255,255,1)"
+        />
+
+        <text x="66" y="81" class="caption">Your-score</text>
+
+        <svg x="54" y="102" clip-path="url(#clipScores)">
+          <clipPath id="clipScores" clipPathUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="309" height="100" rx="22" />
+          </clipPath>
+          <g class="score s0" transform="translate(0)">
+            <rect />
+            <text x="31" y="73">A</text>
+          </g>
+          <g class="score s1" transform="translate(62)">
+            <rect />
+            <text x="31" y="73">B</text>
+          </g>
+          <g class="score s2" transform="translate(124)">
+            <rect />
+            <text x="31" y="73">C</text>
+          </g>
+          <g class="score s3" transform="translate(186)">
+            <rect />
+            <text x="31" y="73">D</text>
+          </g>
+          <g class="score s4" transform="translate(248)">
+            <rect />
+            <text x="31" y="73">E</text>
+          </g>
+        </svg>
+
+        <svg class="main" x="54" y="102">
+          <g class="score s0" transform="translate(0)">
+            <rect />
+            <text x="31" y="73">A</text>
+          </g>
+          <g class="score s1" transform="translate(62)">
+            <rect />
+            <text x="31" y="73">B</text>
+          </g>
+          <g class="score s2" transform="translate(124)">
+            <rect />
+            <text dx="31" y="73">C</text>
+          </g>
+          <g class="score s3" transform="translate(186)">
+            <rect />
+            <text x="31" y="73">D</text>
+          </g>
+          <g class="score s4" transform="translate(248)">
+            <rect />
+            <text x="31" y="73">E</text>
+          </g>
+        </svg>
+      </svg>
+    </template>
+
+    <script defer>
+      const scores = {
+        caption: "Your-score",
+        length: 5,
+        0: { mark: "A", color: "#007e46" },
+        1: { mark: "B", color: "#6eb848" },
+        2: { mark: "C", color: "#ffbf32" },
+        3: { mark: "D", color: "#ff722b" },
+        4: { mark: "E", color: "#ff3226" },
+      }
+
+      document.forms.parameters.elements.caption.addEventListener(
+        "input",
+        (event) => {
+          const caption = event.target.value
+
+          if (caption) {
+            scores.caption = caption
+            draw()
+          }
+        }
+      )
+      document.getElementById("scores").addEventListener("input", (event) => {
+        const score = event.target.parentElement.dataset["score"]
+        const name = event.target.name
+        const value = event.target.value
+        if (value) {
+          scores[score][name] = value
+          draw()
+        }
+      })
+
+      function draw() {
+        document.title = scores.caption
+
+        const template = document.getElementById("template")
+        const preview = document.getElementById("preview")
+
+        for (
+          let s = 0;
+          s < Math.max(scores.length, preview.children.length);
+          s++
+        ) {
+          const oldLabel = preview.children[s]
+          const newLabel = template.content.cloneNode(true)
+
+          if (!newLabel) {
+            oldLabel.remove()
+            break;
+          }
+
+          for (const element of newLabel.querySelectorAll(".caption"))
+            element.textContent = scores.caption
+
+          for (const mark of newLabel.querySelectorAll(`.score.s${s} text`))
+            mark.textContent = String(scores[s].mark)[0]
+
+          newLabel.querySelector(`.score.s${s - 1}`)?.classList.add("upper")
+          newLabel.querySelector(`.main .score.s${s}`)?.classList.add("main")
+          newLabel.querySelector(`.score.s${s + 1}`)?.classList.add("lower")
+
+          if (oldLabel) oldLabel.replaceWith(newLabel)
+          else preview.appendChild(newLabel)
+        }
+      }
+
+      draw()
+    </script>
+  </body>
+</html>
