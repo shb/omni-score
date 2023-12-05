@@ -17,6 +17,7 @@
       body {
         display: flex;
         flex-direction: row;
+        font-family: "Urbanist", sans-serif;
       }
 
       #parameters {
@@ -28,6 +29,7 @@
       #preview {
         background-color: rgb(191, 193, 195);
         flex: 1 1 auto;
+        overflow-y: auto;
       }
 
       #scores {
@@ -44,23 +46,23 @@
       <ol id="scores">
         <li data-score="0">
           <input type="text" name="mark" value="A" />
-          <input type="color" name="mark" value="#007e46" />
+          <input type="color" name="color" value="#007e46" />
         </li>
         <li data-score="1">
           <input type="text" name="mark" value="B" />
-          <input type="color" name="mark" value="#6eb848" />
+          <input type="color" name="color" value="#6eb848" />
         </li>
         <li data-score="2">
           <input type="text" name="mark" value="C" />
-          <input type="color" name="mark" value="#ffbf32" />
+          <input type="color" name="color" value="#ffbf32" />
         </li>
         <li data-score="3">
           <input type="text" name="mark" value="D" />
-          <input type="color" name="mark" value="#ff722b" />
+          <input type="color" name="color" value="#ff722b" />
         </li>
         <li data-score="4">
           <input type="text" name="mark" value="E" />
-          <input type="color" name="mark" value="#ff3226" />
+          <input type="color" name="color" value="#ff3226" />
         </li>
       </ol>
     </form>
@@ -105,16 +107,16 @@
             rx: 40;
             stroke: white;
             stroke-width: 7;
-            transform: translate(-10px, -17px);
-            width: 81;
+            transform: translate(-11px, -17px);
+            width: 82;
           }
           .score.main text {
             fill-opacity: 1;
             font: normal 800 83px/1 "Urbanist", sans-serif;
-            transform: translate(-1px, 4px);
+            transform: translate(-1px, 5px);
           }
           .score.lower text {
-            transform: translate(5px);
+            transform: translate(4px);
           }
           .score.upper text {
             transform: translate(-5px);
@@ -176,23 +178,23 @@
         <svg class="main" x="54" y="102">
           <g class="score s0" transform="translate(0)">
             <rect />
-            <text x="31" y="73">A</text>
+            <text x="31" y="73">M</text>
           </g>
           <g class="score s1" transform="translate(62)">
             <rect />
-            <text x="31" y="73">B</text>
+            <text x="31" y="73">W</text>
           </g>
           <g class="score s2" transform="translate(124)">
             <rect />
-            <text dx="31" y="73">C</text>
+            <text dx="31" y="73">X</text>
           </g>
           <g class="score s3" transform="translate(186)">
             <rect />
-            <text x="31" y="73">D</text>
+            <text x="31" y="73">Y</text>
           </g>
           <g class="score s4" transform="translate(248)">
             <rect />
-            <text x="31" y="73">E</text>
+            <text x="31" y="73">Z</text>
           </g>
         </svg>
       </svg>
@@ -209,6 +211,8 @@
         4: { mark: "E", color: "#ff3226" },
       }
 
+      document.addEventListener("DOMContentLoaded", draw)
+
       document.forms.parameters.elements.caption.addEventListener(
         "input",
         (event) => {
@@ -220,10 +224,12 @@
           }
         }
       )
+
       document.getElementById("scores").addEventListener("input", (event) => {
         const score = event.target.parentElement.dataset["score"]
         const name = event.target.name
         const value = event.target.value
+        console.log({ score, name, value })
         if (value) {
           scores[score][name] = value
           draw()
@@ -235,36 +241,55 @@
 
         const template = document.getElementById("template")
         const preview = document.getElementById("preview")
+        let oldLabel
+        let newLabel
 
         for (
           let s = 0;
           s < Math.max(scores.length, preview.children.length);
           s++
         ) {
-          const oldLabel = preview.children[s]
-          const newLabel = template.content.cloneNode(true)
+          oldLabel = preview.children[s]
+          newLabel = template.content.cloneNode(true)
+          if (noMoreLabels()) break
+          setScoreCaption()
+          setScoreLetters()
+          highlightMainScore(s)
+          addNewLabel()
+        }
 
+        function noMoreLabels() {
           if (!newLabel) {
             oldLabel.remove()
-            break;
+            return true
           }
+        }
 
+        function setScoreCaption() {
           for (const element of newLabel.querySelectorAll(".caption"))
             element.textContent = scores.caption
+        }
 
-          for (const mark of newLabel.querySelectorAll(`.score.s${s} text`))
-            mark.textContent = String(scores[s].mark)[0]
+        function setScoreLetters() {
+          for (let s = 0; s < scores.length; s++) {
+            for (const mark of newLabel.querySelectorAll(`.score.s${s} text`))
+              mark.textContent = scores[s].mark[0]
+            for (const rect of newLabel.querySelectorAll(`.score.s${s} rect`))
+              rect.style.fill = scores[s].color
+          }
+        }
 
+        function highlightMainScore(s) {
           newLabel.querySelector(`.score.s${s - 1}`)?.classList.add("upper")
           newLabel.querySelector(`.main .score.s${s}`)?.classList.add("main")
           newLabel.querySelector(`.score.s${s + 1}`)?.classList.add("lower")
+        }
 
+        function addNewLabel() {
           if (oldLabel) oldLabel.replaceWith(newLabel)
           else preview.appendChild(newLabel)
         }
       }
-
-      draw()
     </script>
   </body>
 </html>
