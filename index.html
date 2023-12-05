@@ -4,7 +4,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;900&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -73,8 +73,8 @@
       <svg width="416" height="256" viewBox="0 0 416 256">
         <style>
           .caption {
-            fill: rgb(108, 110, 112);
-            font: normal 800 34px/1 "Urbanist", sans-serif;
+            fill: rgb(118, 120, 123);
+            font: normal 900 34px/1 "Urbanist", sans-serif;
             letter-spacing: 0.6;
             text-transform: uppercase;
           }
@@ -102,17 +102,18 @@
             clip-path: none;
           }
           .score.main rect {
-            height: 133;
+            height: 131;
             border-radius: 40px;
             rx: 40;
+            ry: 36;
             stroke: white;
             stroke-width: 7;
-            transform: translate(-11px, -17px);
-            width: 82;
+            transform: translate(-10px, -14px);
+            width: 80;
           }
           .score.main text {
             fill-opacity: 1;
-            font: normal 800 83px/1 "Urbanist", sans-serif;
+            font: normal 900 83px/1 "Urbanist", sans-serif;
             transform: translate(-1px, 5px);
           }
           .score.lower text {
@@ -200,7 +201,7 @@
       </svg>
     </template>
 
-    <script defer>
+    <script>
       const scores = {
         caption: "Your-score",
         length: 5,
@@ -211,7 +212,11 @@
         4: { mark: "E", color: "#ff3226" },
       }
 
-      document.addEventListener("DOMContentLoaded", draw)
+      document.addEventListener("DOMContentLoaded", () => {
+        loadScores()
+        updateInputs()
+        drawLabels()
+      })
 
       document.forms.parameters.elements.caption.addEventListener(
         "input",
@@ -220,7 +225,7 @@
 
           if (caption) {
             scores.caption = caption
-            draw()
+            drawLabels()
           }
         }
       )
@@ -229,14 +234,15 @@
         const score = event.target.parentElement.dataset["score"]
         const name = event.target.name
         const value = event.target.value
-        console.log({ score, name, value })
+
         if (value) {
           scores[score][name] = value
-          draw()
+          drawLabels()
+          saveScores()
         }
       })
 
-      function draw() {
+      function drawLabels() {
         document.title = scores.caption
 
         const template = document.getElementById("template")
@@ -288,6 +294,40 @@
         function addNewLabel() {
           if (oldLabel) oldLabel.replaceWith(newLabel)
           else preview.appendChild(newLabel)
+        }
+      }
+
+      function saveScores() {
+        const params = []
+        for (let i = 0; i < scores.length; i++)
+          params.push(`${scores[i].mark}:${scores[i].color.replace(/^\#/, "")}`)
+        const state = `${encodeURIComponent(scores.caption)};${params.join(
+          ","
+        )}`
+        history.replaceState({}, undefined, `#${state}`)
+      }
+
+      function loadScores() {
+        const state = location.hash.replace(/^\#/, "")
+        if (!state) return
+
+        const [caption, params] = state.split(";")
+        scores.caption = caption
+        params.split(",").forEach((param, s) => {
+          const [mark, color] = param.split(":")
+          scores[s] = {
+            mark,
+            color: `#${color}`,
+          }
+          scores.length = s + 1
+        })
+      }
+
+      function updateInputs() {
+        document.forms.parameters.elements.caption.value = scores.caption
+        for (let s = 0; s < scores.length; s++) {
+          document.forms.parameters.elements.mark[s].value = scores[s].mark
+          document.forms.parameters.elements.color[s].value = scores[s].color
         }
       }
     </script>
