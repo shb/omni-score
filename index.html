@@ -7,9 +7,9 @@
       href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
       * {
-        line-height: 1;
         margin: 0;
         padding: 0;
       }
@@ -20,58 +20,135 @@
         font-family: "Urbanist", sans-serif;
       }
 
+      .flex\:col {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+      }
+
+      .flex\:row {
+        display: flex;
+        flex-direction: row;
+        gap: 1ex;
+      }
+      
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 700,
+        'GRAD' 0,
+        'opsz' 24
+      }
+
       #sidebar {
         background-color: white;
-        display: flex;
         flex: 0 0 auto;
-        flex-direction: column;
-        gap: 2em;
         padding: 1em 1ex;
       }
 
-      #preview {
+      #configuration input {
+        box-sizing: border-box;
+        height: 27px;
+        vertical-align: middle;
+      }
+
+      #viewport {
         background-color: rgb(191, 193, 195);
         flex: 1 1 auto;
         overflow-y: auto;
+        position: relative;
       }
 
-      #scores {
+      #preview svg {
+        cursor: context-menu;
+      }
+
+      #cursor {
+        background: transparent;
+        border: 10px solid rgba(0,0,0,0.4);
+        border-radius: 46px;
+        box-sizing: border-box;
+        margin: 30px;
+        position: absolute;
+        transition-property: left, top;
+        transition-duration: 150ms;
+        width: 406px;
+        height: 196px;
+      }
+      #cursor .toolbar {
+        align-items: stretch;
+        background: rgba(0,0,0,0.4);
+        background-blend-mode: color;
+        border-radius: 0 36px 36px 0;
+        bottom: 0;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        justify-content: space-evenly;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+      }
+      #cursor .toolbar > * {
+        color: white;
+        cursor: pointer;
+        text-align: center;
+      }
+      #cursor .toolbar > *:focus {
+        outline: none;
+      }
+
+      #scoreList {
+        display: flex;
+        flex-direction: column;
+        gap: 1ex;
         list-style: none;
+      }
+      #scoreList li > input {
+        flex: 1 1 50%;
+        max-width: 50%;
       }
     </style>
   </head>
   <body>
-    <div id="sidebar">
-      <form name="parameters">
-        <label for="caption">Title</label><br />
-        <input type="text" name="caption" value="Your-score" /><br />
-        <br />
-        <label>Scores</label><br />
-        <ol id="scores">
-          <li data-score="0">
-            <input type="text" name="mark" value="A" />
-            <input type="color" name="color" value="#007e46" />
-          </li>
-          <li data-score="1">
-            <input type="text" name="mark" value="B" />
-            <input type="color" name="color" value="#6eb848" />
-          </li>
-          <li data-score="2">
-            <input type="text" name="mark" value="C" />
-            <input type="color" name="color" value="#ffbf32" />
-          </li>
-          <li data-score="3">
-            <input type="text" name="mark" value="D" />
-            <input type="color" name="color" value="#ff722b" />
-          </li>
-          <li data-score="4">
-            <input type="text" name="mark" value="E" />
-            <input type="color" name="color" value="#ff3226" />
-          </li>
-        </ol>
-      </form>
+    <aside id="sidebar" class="flex:col">
+      <section id="configuration">
+        <form name="parameters" class="flex:col">
+          <div>
+            <label for="caption">Title</label>
+            <br />
+            <input type="text" name="caption" value="Your-score" />
+          </div>
+          <div>
+            <label>Scores</label><br />
+            <ol id="scoreList">
+              <li data-score="0" class="flex:row">
+                <input type="text" name="mark" minlength="1" maxlength="1" value="A" />
+                <input type="color" name="color" value="#007e46" />
+              </li>
+              <li data-score="1" class="flex:row">
+                <input type="text" name="mark" minlength="1" maxlength="1" value="B" />
+                <input type="color" name="color" value="#6eb848" />
+              </li>
+              <li data-score="2" class="flex:row">
+                <input type="text" name="mark" minlength="1" maxlength="1" value="C" />
+                <input type="color" name="color" value="#ffbf32" />
+              </li>
+              <li data-score="3" class="flex:row">
+                <input type="text" name="mark" minlength="1" maxlength="1" value="D" />
+                <input type="color" name="color" value="#ff722b" />
+              </li>
+              <li data-score="4" class="flex:row">
+                <input type="text" name="mark" minlength="1" maxlength="1" value="E" />
+                <input type="color" name="color" value="#ff3226" />
+              </li>
+            </ol>
+          </div>
+        </form>
+      </section>
 
-      <div>
+      <section id="gallery">
         <h2>Gallery</h2>
         <nav>
           <a href="#Choco-score;5:481414,4:68322c,3:966f4f,2:ecb555,1:ffdd94"
@@ -82,13 +159,23 @@
           ><br />
           <a href="#Carbon-score;A:2080df,B:40bfbf,C:a3d2a3,D:988c81,E:43403d">Carbon-score</a></br>
         </nav>
-      </div>
-    </div>
+      </section>
+    </aside>
 
-    <div id="preview"></div>
+    <main id="viewport">
+      <div id="preview"></div>
+      <dialog id="cursor">
+        <div class="toolbar">
+          <span class="material-symbols-outlined copy" title="Copy code">content_copy</span>
+          <a class="download" href="" download="label.svg" title="Download file">
+            <span class="material-symbols-outlined download">download</span>
+          </a>
+        </div>
+      </dialog>
+    </main>
 
     <template id="template">
-      <svg width="416" height="256" viewBox="0 0 416 256">
+      <svg width="416" height="256" viewBox="0 0 416 256" class="label">
         <style>
           .caption {
             fill: rgb(118, 120, 123);
@@ -230,7 +317,14 @@
         4: { mark: "E", color: "#ff3226" },
       }
 
+      let selectedImage = null
+      let selectedUrl = null
+
       addEventListener("hashchange", init)
+
+      window.addEventListener('resize', () => {
+        drawCursor()
+      })
 
       document.addEventListener("DOMContentLoaded", init)
 
@@ -246,7 +340,7 @@
         }
       )
 
-      document.getElementById("scores").addEventListener("input", (event) => {
+      scoreList.addEventListener("input", (event) => {
         const score = event.target.parentElement.dataset["score"]
         const name = event.target.name
         const value = event.target.value
@@ -258,13 +352,52 @@
         }
       })
 
+      preview.addEventListener("click", event => {
+        const image = event.target.closest('svg.label')
+        if (image) {
+          selectedImage = image
+          const file = new File([getSvgDocument(selectedImage)], "label.svg", {
+            type: "image/svg+xml"
+          })
+          if (selectedUrl) URL.revokeObjectURL(selectedUrl)
+          selectedUrl = URL.createObjectURL(file)
+          cursor.querySelector(".toolbar .download").href= selectedUrl
+          drawCursor()
+        }
+      })
+
+      cursor.querySelector(".toolbar .copy").addEventListener("click", () => {
+        const svg = getSvgDocument(selectedImage)
+        navigator.clipboard.writeText(svg)
+          .then(() => alert("Copied to clipboard!"))
+          .catch(console.error)
+      })
+
       function init() {
         loadScores()
         updateInputs()
         drawLabels()
       }
 
+      function getSvgDocument (image) {
+        return '<?xml version="1.0" standalone="no"?>\n'
+          + image.outerHTML
+      }
+
+      function drawCursor () {
+        const viewRect = viewport.getBoundingClientRect()
+        const imgRect = selectedImage.getBoundingClientRect()
+
+        const cursor = document.getElementById("cursor")
+        cursor.style.left = imgRect.left - viewRect.left + viewport.scrollLeft + 'px'
+        cursor.style.top = imgRect.top - viewRect.top + viewport.scrollTop + 'px'
+
+        cursor.show()
+      }
+
       function drawLabels() {
+        cursor.close()
+
         document.title = scores.caption
 
         const template = document.getElementById("template")
