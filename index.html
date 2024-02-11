@@ -3,113 +3,7 @@
     <title>Your-score</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        display: flex;
-        flex-direction: row;
-        font-family: "Urbanist", sans-serif;
-      }
-
-      .flex\:col {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-      }
-
-      .flex\:row {
-        display: flex;
-        flex-direction: row;
-        gap: 1ex;
-      }
-      
-      .material-symbols-outlined {
-        font-variation-settings:
-        'FILL' 0,
-        'wght' 700,
-        'GRAD' 0,
-        'opsz' 24
-      }
-
-      #sidebar {
-        background-color: white;
-        flex: 0 0 auto;
-        padding: 1em 1ex;
-      }
-
-      #configuration input {
-        box-sizing: border-box;
-        height: 27px;
-        vertical-align: middle;
-      }
-
-      #viewport {
-        background-color: rgb(191, 193, 195);
-        flex: 1 1 auto;
-        overflow-y: auto;
-        position: relative;
-      }
-
-      #preview svg {
-        cursor: context-menu;
-      }
-
-      #cursor {
-        background: transparent;
-        border: 10px solid rgba(0,0,0,0.4);
-        border-radius: 46px;
-        box-sizing: border-box;
-        margin: 30px;
-        position: absolute;
-        transition-property: left, top;
-        transition-duration: 150ms;
-        width: 406px;
-        height: 196px;
-      }
-      #cursor .toolbar {
-        align-items: stretch;
-        background: rgba(0,0,0,0.4);
-        background-blend-mode: color;
-        border-radius: 0 36px 36px 0;
-        bottom: 0;
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        justify-content: space-evenly;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 50px;
-      }
-      #cursor .toolbar > * {
-        color: white;
-        cursor: pointer;
-        text-align: center;
-      }
-      #cursor .toolbar > *:focus {
-        outline: none;
-      }
-
-      #scoreList {
-        display: flex;
-        flex-direction: column;
-        gap: 1ex;
-        list-style: none;
-      }
-      #scoreList li > input {
-        flex: 1 1 50%;
-        max-width: 50%;
-      }
-    </style>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <aside id="sidebar" class="flex:col">
@@ -175,8 +69,10 @@
     </main>
 
     <template id="template">
-      <svg width="416" height="256" viewBox="0 0 416 256" class="label">
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="256" viewBox="0 0 416 256" class="label">
         <style>
+          @import url(https://fonts.googleapis.com/css2?family=Urbanist:wght@700;900&display=swap);
+
           .caption {
             fill: rgb(118, 120, 123);
             font: normal 900 34px/1 "Urbanist", sans-serif;
@@ -208,9 +104,6 @@
           }
           .score.main rect {
             height: 131;
-            border-radius: 40px;
-            rx: 40;
-            ry: 36;
             stroke: white;
             stroke-width: 7;
             transform: translate(-10px, -14px);
@@ -283,208 +176,29 @@
 
         <svg class="main" x="54" y="102">
           <g class="score s0" transform="translate(0)">
-            <rect />
+            <rect rx="40" ry="36"/>
             <text x="31" y="73">M</text>
           </g>
           <g class="score s1" transform="translate(62)">
-            <rect />
+            <rect rx="40" ry="36"/>
             <text x="31" y="73">W</text>
           </g>
           <g class="score s2" transform="translate(124)">
-            <rect />
+            <rect rx="40" ry="36"/>
             <text dx="31" y="73">X</text>
           </g>
           <g class="score s3" transform="translate(186)">
-            <rect />
+            <rect rx="40" ry="36"/>
             <text x="31" y="73">Y</text>
           </g>
           <g class="score s4" transform="translate(248)">
-            <rect />
+            <rect rx="40" ry="36"/>
             <text x="31" y="73">Z</text>
           </g>
         </svg>
       </svg>
     </template>
 
-    <script>
-      const scores = {
-        caption: "Your-score",
-        length: 5,
-        0: { mark: "A", color: "#007e46" },
-        1: { mark: "B", color: "#6eb848" },
-        2: { mark: "C", color: "#ffbf32" },
-        3: { mark: "D", color: "#ff722b" },
-        4: { mark: "E", color: "#ff3226" },
-      }
-
-      let selectedImage = null
-      let selectedUrl = null
-
-      addEventListener("hashchange", init)
-
-      window.addEventListener('resize', () => {
-        drawCursor()
-      })
-
-      document.addEventListener("DOMContentLoaded", init)
-
-      document.forms.parameters.elements.caption.addEventListener(
-        "input",
-        (event) => {
-          const caption = event.target.value
-
-          if (caption) {
-            scores.caption = caption
-            drawLabels()
-          }
-        }
-      )
-
-      scoreList.addEventListener("input", (event) => {
-        const score = event.target.parentElement.dataset["score"]
-        const name = event.target.name
-        const value = event.target.value
-
-        if (value) {
-          scores[score][name] = value
-          drawLabels()
-          saveScores()
-        }
-      })
-
-      preview.addEventListener("click", event => {
-        const image = event.target.closest('svg.label')
-        if (image) {
-          selectedImage = image
-          const file = new File([getSvgDocument(selectedImage)], "label.svg", {
-            type: "image/svg+xml"
-          })
-          if (selectedUrl) URL.revokeObjectURL(selectedUrl)
-          selectedUrl = URL.createObjectURL(file)
-          cursor.querySelector(".toolbar .download").href= selectedUrl
-          drawCursor()
-        }
-      })
-
-      cursor.querySelector(".toolbar .copy").addEventListener("click", () => {
-        const svg = getSvgDocument(selectedImage)
-        navigator.clipboard.writeText(svg)
-          .then(() => alert("Copied to clipboard!"))
-          .catch(console.error)
-      })
-
-      function init() {
-        loadScores()
-        updateInputs()
-        drawLabels()
-      }
-
-      function getSvgDocument (image) {
-        return '<?xml version="1.0" standalone="no"?>\n'
-          + image.outerHTML
-      }
-
-      function drawCursor () {
-        const viewRect = viewport.getBoundingClientRect()
-        const imgRect = selectedImage.getBoundingClientRect()
-
-        const cursor = document.getElementById("cursor")
-        cursor.style.left = imgRect.left - viewRect.left + viewport.scrollLeft + 'px'
-        cursor.style.top = imgRect.top - viewRect.top + viewport.scrollTop + 'px'
-
-        cursor.show()
-      }
-
-      function drawLabels() {
-        cursor.close()
-
-        document.title = scores.caption
-
-        const template = document.getElementById("template")
-        const preview = document.getElementById("preview")
-        let oldLabel
-        let newLabel
-
-        for (
-          let s = 0;
-          s < Math.max(scores.length, preview.children.length);
-          s++
-        ) {
-          oldLabel = preview.children[s]
-          newLabel = template.content.cloneNode(true)
-          if (noMoreLabels()) break
-          setScoreCaption()
-          setScoreLetters()
-          highlightMainScore(s)
-          addNewLabel()
-        }
-
-        function noMoreLabels() {
-          if (!newLabel) {
-            oldLabel.remove()
-            return true
-          }
-        }
-
-        function setScoreCaption() {
-          for (const element of newLabel.querySelectorAll(".caption"))
-            element.textContent = scores.caption
-        }
-
-        function setScoreLetters() {
-          for (let s = 0; s < scores.length; s++) {
-            for (const mark of newLabel.querySelectorAll(`.score.s${s} text`))
-              mark.textContent = scores[s].mark[0]
-            for (const rect of newLabel.querySelectorAll(`.score.s${s} rect`))
-              rect.style.fill = scores[s].color
-          }
-        }
-
-        function highlightMainScore(s) {
-          newLabel.querySelector(`.score.s${s - 1}`)?.classList.add("upper")
-          newLabel.querySelector(`.main .score.s${s}`)?.classList.add("main")
-          newLabel.querySelector(`.score.s${s + 1}`)?.classList.add("lower")
-        }
-
-        function addNewLabel() {
-          if (oldLabel) oldLabel.replaceWith(newLabel)
-          else preview.appendChild(newLabel)
-        }
-      }
-
-      function saveScores() {
-        const params = []
-        for (let i = 0; i < scores.length; i++)
-          params.push(`${scores[i].mark}:${scores[i].color.replace(/^\#/, "")}`)
-        const state = `${encodeURIComponent(scores.caption)};${params.join(
-          ","
-        )}`
-        history.replaceState({}, undefined, `#${state}`)
-      }
-
-      function loadScores() {
-        const state = location.hash.replace(/^\#/, "")
-        if (!state) return
-
-        const [caption, params] = state.split(";")
-        scores.caption = caption
-        params.split(",").forEach((param, s) => {
-          const [mark, color] = param.split(":")
-          scores[s] = {
-            mark,
-            color: `#${color}`,
-          }
-          scores.length = s + 1
-        })
-      }
-
-      function updateInputs() {
-        document.forms.parameters.elements.caption.value = scores.caption
-        for (let s = 0; s < scores.length; s++) {
-          document.forms.parameters.elements.mark[s].value = scores[s].mark
-          document.forms.parameters.elements.color[s].value = scores[s].color
-        }
-      }
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>

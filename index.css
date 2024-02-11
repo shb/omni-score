@@ -1,0 +1,99 @@
+@import url(https://fonts.googleapis.com/css2?family=Urbanist:wght@700;900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200);
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  font-family: "Urbanist", sans-serif;
+}
+
+.flex\:col {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.flex\:row {
+  display: flex;
+  flex-direction: row;
+  gap: 1ex;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 24;
+}
+
+#sidebar {
+  background-color: white;
+  flex: 0 0 auto;
+  padding: 1em 1ex;
+}
+
+#configuration input {
+  box-sizing: border-box;
+  height: 27px;
+  vertical-align: middle;
+}
+
+#viewport {
+  background-color: rgb(191, 193, 195);
+  flex: 1 1 auto;
+  overflow-y: auto;
+  position: relative;
+}
+
+#preview svg > * {
+  cursor: context-menu;
+}
+
+#cursor {
+  background: transparent;
+  border: 10px solid rgba(0, 0, 0, 0.4);
+  border-radius: 46px;
+  box-sizing: border-box;
+  margin: 30px;
+  position: absolute;
+  transition-property: left, top;
+  transition-duration: 150ms;
+  width: 406px;
+  height: 196px;
+}
+#cursor .toolbar {
+  align-items: stretch;
+  background: rgba(0, 0, 0, 0.4);
+  background-blend-mode: color;
+  border-radius: 0 36px 36px 0;
+  bottom: 0;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+}
+#cursor .toolbar > * {
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+#cursor .toolbar > *:focus {
+  outline: none;
+}
+
+#scoreList {
+  display: flex;
+  flex-direction: column;
+  gap: 1ex;
+  list-style: none;
+}
+#scoreList li > input {
+  flex: 1 1 50%;
+  max-width: 50%;
+}
