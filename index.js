@@ -74,12 +74,18 @@ function getSvgDocument(image) {
 
 function showCursor(image) {
   selectedImage = image
-  const file = new File([getSvgDocument(selectedImage)], "label.svg", {
+  
+  const fileName = "label.svg"
+  const file = new File([getSvgDocument(selectedImage)], fileName, {
     type: "image/svg+xml"
   })
   if (selectedUrl) URL.revokeObjectURL(selectedUrl)
   selectedUrl = URL.createObjectURL(file)
-  cursor.querySelector(".toolbar .download").href = selectedUrl
+
+  with (cursor.querySelector(".toolbar .download")) {
+    href = selectedUrl
+    download = fileName
+  }
 
   const viewRect = viewport.getBoundingClientRect()
   const imgRect = selectedImage?.getBoundingClientRect()
